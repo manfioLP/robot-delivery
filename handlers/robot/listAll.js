@@ -5,17 +5,21 @@ const { Robot } = require('../../db/models');
 
 module.exports.listAll = async (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
-
-    console.log('performing operation [listRobots]')
     try {
+        const { page=0, limit=10, skip=page*limit, lm=+limit } = { ...event.queryStringParameters }
+
         await connectToDatabase();
 
-        const robots = await Robot.find()
+        const robots = await Robot
+            .find({})
+            .limit(lm)
+            .skip(skip);
 
+        console.log('robots', robots)
         return {
             statusCode: 200,
             body: JSON.stringify({
-                moved: true
+                robots
             }),
             headers: {
                 'Access-Control-Allow-Origin': '*',
