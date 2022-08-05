@@ -15,7 +15,6 @@ module.exports.listAll = async (event, context, callback) => {
             .limit(lm)
             .skip(skip);
 
-        console.log('robots', robots)
         return {
             statusCode: 200,
             body: JSON.stringify({

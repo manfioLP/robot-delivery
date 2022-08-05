@@ -38,9 +38,8 @@ const dropCollection = async (collectionName) => {
     }
 
     const drop = await mongoose.connection.db.dropCollection(collectionName)
-    console.log('drop coll', drop)
     return {
-        dropped: true, msg: `Collection ${collectionName} dropped!`
+        drop, msg: `Collection ${collectionName} dropped!`
     }
 }
 
