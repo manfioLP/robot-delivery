@@ -1,0 +1,88 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/v1-robot-delivery
+
+    docker:
+      - image: circleci/node:12.15
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: v1-robot-delivery-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: Install dependencies
+          command: |
+            npm install
+
+      - save_cache:
+          key: v1-robot-delivery-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+
+  test:
+    working_directory: ~/v1-robot-delivery
+
+    docker:
+      - image: circleci/node:12.15
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-robot-delivery-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: run tests with code coverage
+          command: |
+            npm test --coverage
+
+  deploy:
+    working_directory: ~/v1-robot-delivery
+
+    docker:
+      - image: circleci/node:12.15
+
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-robot-delivery-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: Install Serverless CLI
+          command: |
+            sudo npm install -g --unsafe-perm serverless
+
+      - run:
+          name: Retrieve environment variables
+          command: |
+            touch .env
+            echo "ATLAS_PWD=${ATLAS_PWD}" >> .env
+            echo "ATLAS_USERNAME=${ATLAS_USERNAME}" >> .env
+            echo "DB_NAME=${DB_NAME}" >> .env
+
+      - run:
+          name: Deploy app
+          command: sls deploy -v
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-cache-{{ checksum "package.json" }}
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+
+
