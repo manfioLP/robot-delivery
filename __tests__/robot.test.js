@@ -1,9 +1,7 @@
-const {promisify} = require('util');
 const addRobotLambda = require('../handlers/robot/add');
 const listAllLambda = require('../handlers/robot/listAll');
 const moveAllLambda = require('../handlers/robot/moveAll');
 
-// const addHandler = promisify(addRobotLambda.add);
 const addHandler = addRobotLambda.add;
 const listAllHandler = listAllLambda.listAll;
 const moveAllHandler = moveAllLambda.moveAll;
