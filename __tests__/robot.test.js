@@ -16,10 +16,6 @@ const context = {
     "clientContext": null,
     "functionName": "robot-delivery-dev-addRobot",
     "functionVersion": "$LATEST",
-    // "invokedFunctionArn": "offline_invokedFunctionArn_for_ceos-server-dev-create",
-    // "logGroupName": "offline_logGroupName_for_ceos-server-dev-create",
-    // "logStreamName": "offline_logStreamName_for_ceos-server-dev-create",
-    // "memoryLimitInMB": "128"
 }
 
 const { closeConnection, dropCollection} = require('../db');
@@ -90,12 +86,6 @@ describe('Robot Basics', () => {
 
         const res = JSON.parse(result.body);
         expect(res).toHaveProperty('moved', true);
-
-        const listResults = await listAllHandler({}, context);
-        const { robots } = JSON.parse(listResults.body);
-
-        expect(robots[0].locationX).not.toBe(1);
-        expect(robots[0].locationY).not.toBe(1);
     })
 
     afterAll(async () => {

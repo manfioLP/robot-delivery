@@ -8,7 +8,6 @@ const { mongoRandNumber } = require('../../db/utils');
 module.exports.moveAll = async (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
 
-    console.log('performing operation [ADD ROBOT]')
     try {
         await connectToDatabase();
 
