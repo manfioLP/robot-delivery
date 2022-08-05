@@ -47,5 +47,13 @@ functions:
           method: post
           cors: true
 
+  acceptQuote:
+    handler: handlers/quote/accept.accept
+    events:
+      - http:
+          path: quote/{id}
+          method: put
+          cors: true
+
 plugins:
   - serverless-offline # adding so it can be run offline

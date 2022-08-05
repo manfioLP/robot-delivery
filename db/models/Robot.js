@@ -11,7 +11,8 @@ const RobotSchema = new mongoose.Schema({
     type: {
         type: String,
         required: [true, robot.TYPE_REQUIRED],
-        enum: ['REGULAR', 'GROCERY', 'FAST']
+        enum: ['REGULAR', 'GROCERY', 'FAST'],
+        default: 'REGULAR'
     },
     locationX: {
         type: Number,
