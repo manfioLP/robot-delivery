@@ -12,20 +12,15 @@ jobs:
       - restore_cache:
           key: v1-robot-delivery-{{ .Environment.CACHE_VERSION }}-{{ checksum "package-lock.json" }}
 
-      - save_cache:
-          key: v1-robot-delivery-{{ .Environment.CACHE_VERSION }}-{{ checksum "package-lock.json" }}
-          paths:
-            - ./node_modules
-
       - run:
           name: Install dependencies
           command: |
             npm ci
 
-      - run:
-          name: list path
-          command: |
-            ls
+      - save_cache:
+          key: v1-robot-delivery-{{ .Environment.CACHE_VERSION }}-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
 
   test:
     working_directory: ~/v1-robot-delivery
