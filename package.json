@@ -20,8 +20,7 @@
   "dependencies": {
     "dotenv": "^16.0.1",
     "mongoose": "^6.5.1",
-    "path": "^0.12.7",
-    "promisify": "^0.0.3"
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "jest": "^28.1.3",
