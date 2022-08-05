@@ -39,5 +39,13 @@ functions:
           method: get
           cors: true
 
+  requestQuote:
+    handler: handlers/quote/request.request
+    events:
+      - http:
+          path: quote
+          method: post
+          cors: true
+
 plugins:
   - serverless-offline # adding so it can be run offline

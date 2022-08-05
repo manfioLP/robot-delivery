@@ -10,11 +10,11 @@ const connectToDatabase = () => {
     const connectionString = `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PWD}@cluster0.cr6zi.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
     if (isConnected) {
-        console.log('=> using existing database connection');
+        // console.log('=> using existing database connection');
         return Promise.resolve();
     }
 
-    console.log('=> using new database connection');
+    // console.log('=> using new database connection');
     return mongoose.connect(connectionString)
         .then(db => {
             isConnected = db.connections[0].readyState;
@@ -37,11 +37,11 @@ const dropCollection = async (collectionName) => {
         return { dropped: false, msg: 'Cannot drop a PRODUCTION DB'};
     }
 
-    mongoose.connection.collections[collectionName].drop(() => {
-        return {
-            dropped: true, msg: `Collection ${collectionName} dropped!`
-        }
-    });
+    const drop = await mongoose.connection.db.dropCollection(collectionName)
+    console.log('drop coll', drop)
+    return {
+        dropped: true, msg: `Collection ${collectionName} dropped!`
+    }
 }
 
 module.exports = {

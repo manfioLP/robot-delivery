@@ -1,7 +1,7 @@
 const Robot = require('./Robot');
-// const Quote = require('./Quote');
+const Quote = require('./Quote');
 
 module.exports = {
     Robot,
-    // Quote
+    Quote
 }
