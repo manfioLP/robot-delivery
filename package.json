@@ -19,7 +19,7 @@
   "homepage": "https://github.com/manfioLP/robot-delivery#readme",
   "dependencies": {
     "dotenv": "^16.0.1",
-    "mongoose": "5.9.19",
+    "mongoose": "^6.5.1",
     "path": "^0.12.7",
     "promisify": "^0.0.3"
   },
