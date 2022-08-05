@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/v1-robot-delivery
 
     docker:
-      - image: circleci/node:12.15
+      - image: circleci/node:10.15
 
     steps:
       - checkout
@@ -17,6 +17,11 @@ jobs:
           command: |
             npm install
 
+      - run:
+          name: list path
+          command: |
+            ls
+
       - save_cache:
           key: v1-robot-delivery-{{ checksum "package-lock.json" }}
           paths:
@@ -26,7 +31,7 @@ jobs:
     working_directory: ~/v1-robot-delivery
 
     docker:
-      - image: circleci/node:12.15
+      - image: circleci/node:10.15
     steps:
       - checkout
       - restore_cache:
@@ -35,13 +40,14 @@ jobs:
       - run:
           name: run tests with code coverage
           command: |
-            npm test --coverage
+            ls |
+            npm run test:ci
 
   deploy:
     working_directory: ~/v1-robot-delivery
 
     docker:
-      - image: circleci/node:12.15
+      - image: circleci/node:10.15
 
     steps:
       - checkout
