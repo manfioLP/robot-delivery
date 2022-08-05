@@ -36,7 +36,7 @@ jobs:
           name: run tests with code coverage
           command: |
             ls |
-            npm run test:ci
+            npm run test --coverage
 
   deploy:
     working_directory: ~/v1-robot-delivery
